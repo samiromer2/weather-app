@@ -15,8 +15,11 @@ function App() {const [data, setData] = useState(null);
      
       {data ? 
       <>
+
       <div> {JSON.stringify(data, null, 1)} </div>
       <div>{data.location.name}</div>
+      <div>{data.location.tz_id}</div>
+      <div>{data.location.localtime}</div>
       </> 
       : 'Loading...'}
     </div>
