@@ -1,29 +1,26 @@
-import { useState ,useEffect } from 'react'
-import './App.css'
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
-function App() {const [data, setData] = useState(null);
+function App() {
+  const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    fetch('http://api.weatherapi.com/v1/current.json?key=94a34ad6160b4ad48ae154328250601&q=Uganda&aqi=no')
-      .then(response => response.json())
-      .then(json => setData(json))
-      .catch(error => console.error(error));
+    axios.get('https://jsonplaceholder.typicode.com/posts')
+      .then(response => {
+        setPosts(response.data);
+      })
+      .catch(error => {
+        console.error(error);
+      });
   }, []);
 
   return (
-    <div>
-     
-      {data ? 
-      <>
-
-      <div> {JSON.stringify(data, null, 1)} </div>
-      <div>{data.location.name}</div>
-      <div>{data.location.tz_id}</div>
-      <div>{data.location.localtime}</div>
-      </> 
-      : 'Loading...'}
-    </div>
+    <ul>
+      {posts.map(post => (
+        <li key={post.id}>{post.title}</li>
+      ))}
+    </ul>
   );
 }
 
-export default App
+export default App;
